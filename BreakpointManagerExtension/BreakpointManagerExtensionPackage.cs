@@ -1,4 +1,7 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using Core;
+using EnvDTE80;
+using Microsoft;
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -24,7 +27,7 @@ namespace BreakpointManagerExtension
     /// </para>
     /// </remarks>
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
-    [Guid(BreakpointManagerExtensionPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     public sealed class BreakpointManagerExtensionPackage : AsyncPackage
     {
         /// <summary>
@@ -46,6 +49,9 @@ namespace BreakpointManagerExtension
             // When initialized asynchronously, the current thread may be a background thread at this point.
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
+            var dte2 = await GetServiceAsync(typeof(DTE2)) as DTE2;
+            Assumes.Present(dte2);
         }
 
         #endregion

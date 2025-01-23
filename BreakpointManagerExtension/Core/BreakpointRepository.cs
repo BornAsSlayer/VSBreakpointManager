@@ -17,7 +17,7 @@ namespace Core
 
         public BreakPointRepository(DTE2 dte2)
         {
-            this.Dte2 = dte2;
+            Dte2 = dte2;
         }
 
         public List<BreakpointInfo> GetAllBreakpoints()
